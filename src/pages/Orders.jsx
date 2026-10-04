@@ -44,7 +44,7 @@
 //                     <strong>{o.id}</strong>
 //                   </div>
 //                   <div>
-//                     <small>Placed on</small>
+//                     <small>Order placed on</small>
 //                     <span>{new Date(o.date).toLocaleString()}</span>
 //                   </div>
 //                   <div>
@@ -125,6 +125,11 @@ export default function Orders() {
       <PageBanner title="My Orders" />
 
       <section className="orders">
+        <div className="orders-intro">
+          <h2>Order History</h2>
+          <p>Here you can see all the orders you have placed and the date and time each order was placed.</p>
+        </div>
+
         {orders.length === 0 ? (
           <div className="notice">
             <p>You have not placed any orders yet.</p>
@@ -145,7 +150,7 @@ export default function Orders() {
                   </div>
 
                   <div>
-                    <small>Placed on</small>
+                    <small>Order placed on</small>
                     <span>{new Date(o.date).toLocaleString()}</span>
                   </div>
 

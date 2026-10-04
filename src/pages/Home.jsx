@@ -11,9 +11,13 @@ const STEP = 8; // "Show More" reveals the next 8
 
 // each category opens the shop already searched for matching products
 const RANGE = [
-  { name: "Dining", img: diningJpeg, q: "table" },
-  { name: "Living", img: diningPng, q: "sofa" },
-  { name: "Bedroom", img: livingJpeg, q: "bed" },
+  { name: "All", icon: "✦", q: "" },
+  { name: "Sofas", icon: "🛋️", q: "sofa" },
+  { name: "Chairs", icon: "🪑", q: "chair" },
+  { name: "Tables", icon: "▤", q: "table" },
+  { name: "Beds", icon: "🛏️", q: "bed" },
+  { name: "Lighting", icon: "💡", q: "lamp" },
+  { name: "Decor", icon: "🌿", q: "decor" },
 ];
 
 const ROOMS = [
@@ -37,30 +41,31 @@ function useProducts() {
 
 function Hero() {
   return (
-    <section id="home" className="hero">
-      <Link
-        className="hero-buy-link"
-        to="/shop"
-        aria-label="Buy now and explore our shop"
-      >
-        BUY NOW
-      </Link>
+    <section id="home" className="hero luxury-hero reference-hero">
+      <div className="reference-hero-overlay" />
+      <div className="reference-hero-copy">
+        <small>MODERN LIVING</small>
+        <h1>Luxury Furniture<br />For Your Dream Home</h1>
+        <p>Stylish. Comfortable. Timeless.<br />Make every space beautiful with Furniro.</p>
+        <Link className="btn reference-hero-btn" to="/shop">Shop Now <span aria-hidden="true">→</span></Link>
+      </div>
     </section>
   );
 }
 
 function Range() {
   return (
-    <section className="range">
-      <h2>Browse The Range</h2>
-      <p className="sub">Find the right piece for every room in your home.</p>
-      <div className="range-grid">
+    <section className="range luxury-range reference-categories" aria-label="Furniture categories">
+      <div className="category-strip">
         {RANGE.map((r) => (
-          <Link key={r.name} to={`/shop?q=${r.q}`} className="range-item" aria-label={`Shop ${r.name}`}>
-            <figure>
-              <img src={r.img} alt={`${r.name} room furniture`} />
-              <figcaption>{r.name}</figcaption>
-            </figure>
+          <Link
+            key={r.name}
+            to={r.q ? `/shop?q=${r.q}` : "/shop"}
+            className="category-tile"
+            aria-label={`Shop ${r.name}`}
+          >
+            <span className="category-icon" aria-hidden="true">{r.icon}</span>
+            <span>{r.name}</span>
           </Link>
         ))}
       </div>
@@ -73,8 +78,10 @@ function Products({ products, status }) {
   const hasMore = visible < products.length;
 
   return (
-    <section id="products" className="products">
+    <section id="products" className="products luxury-products">
+      <div className="section-kicker">HANDPICKED FOR YOU</div>
       <h2>Our Products</h2>
+      <p className="sub">Premium pieces with timeless design, selected for modern living.</p>
       {status === "loading" && <p className="sub">Loading products…</p>}
       {status === "error" && <p className="sub">Products could not be loaded. Check your internet connection and refresh.</p>}
       <div className="grid">

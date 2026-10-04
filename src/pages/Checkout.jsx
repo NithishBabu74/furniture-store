@@ -49,7 +49,7 @@ const EMPTY = {
   phone: "",
   email: "",
   notes: "",
-  payment: "Direct Bank Transfer",
+  payment: "Cash On Delivery",
 };
 
 function Field({ label, children }) {
@@ -113,13 +113,18 @@ export default function Checkout() {
 
     body = (
       <section className="co-done">
-        <h2>Thank you, {c.firstName}. Your order is placed.</h2>
+        <div className="co-success-icon" aria-hidden="true">✓</div>
+        <h2>Submit Your Order Successfully Completed!</h2>
+        <p className="co-success-name">Thank you, {c.firstName}!</p>
 
         <p>
-          Order number <strong>{order.id}</strong>. We will contact you at{" "}
-          {c.email} about delivery to {c.street}, {c.city},{" "}
-          {c.province && `${c.province}, `}
-          {c.country}.
+          Your order <strong>{order.id}</strong> has been successfully placed.
+          You can view this order anytime from <strong>My Orders</strong>.
+        </p>
+
+        <p className="co-order-date">
+          Order placed on{" "}
+          <strong>{new Date(order.date).toLocaleString()}</strong>
         </p>
 
         <ul className="co-lines">
@@ -133,7 +138,7 @@ export default function Checkout() {
           ))}
 
           <li className="co-total">
-            <span>Total ({c.payment})</span>
+            <span>Total — {c.payment}</span>
             <strong>{money(order.total)}</strong>
           </li>
         </ul>

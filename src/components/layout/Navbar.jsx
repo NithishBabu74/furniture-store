@@ -49,7 +49,7 @@ export default function Navbar() {
     <header className="nav">
       <Link className="logo" to="/" aria-label="Furniro home" onClick={(e) => goTo(e, "home")}><Logo /></Link>
       <nav aria-label="Main">
-        <a href="/" className={cls("home")} onClick={(e) => goTo(e, "home")}>Home</a>
+        <Link to="/" className={cls("home")} onClick={(e) => goTo(e, "home")}>Home</Link>
         <Link to="/shop" className={cls("shop")}>Shop</Link>
         <a href="/#about" className={cls("about")} onClick={(e) => goTo(e, "about")}>About</a>
         <Link to="/contact" className={cls("contact")}>Contact</Link>
@@ -58,7 +58,16 @@ export default function Navbar() {
         <Link to="/orders" className="icon-btn hide-sm" aria-label="My account and orders" title="My orders">
           <UserIcon />{orders.length > 0 && <span className="dot" />}
         </Link>
-        <button className="icon-btn hide-sm" onClick={() => setSearchOpen((o) => !o)} aria-label="Search products" aria-expanded={searchOpen} title="Search"><SearchIcon /></button>
+        <form className="nav-inline-search" onSubmit={search} role="search">
+          <SearchIcon />
+          <input
+            type="search"
+            placeholder="Search furniture..."
+            value={q}
+            onChange={(e) => setQ(e.target.value)}
+            aria-label="Search products"
+          />
+        </form>
         <Link to="/wishlist" className="icon-btn hide-sm" aria-label={`Wishlist, ${liked.length} items`} title="Wishlist">
           <HeartIcon />{liked.length > 0 && <span className="cart-count">{liked.length}</span>}
         </Link>
@@ -66,12 +75,7 @@ export default function Navbar() {
           <CartIcon />{count > 0 && <span className="cart-count">{count}</span>}
         </button>
       </div>
-      {searchOpen && (
-        <form className="nav-search" onSubmit={search} role="search">
-          <input autoFocus type="search" placeholder="Search sofa, bed, table, lamp…" value={q} onChange={(e) => setQ(e.target.value)} aria-label="Search products" onKeyDown={(e) => e.key === "Escape" && setSearchOpen(false)} />
-          <button className="btn small" type="submit">Search</button>
-        </form>
-      )}
+
     </header>
   );
 }

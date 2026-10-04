@@ -39,7 +39,7 @@ export default function Footer() {
           )}
         </div>
       </div>
-      <p className="copy">© 2026 Furniro. All rights reserved</p>
+      <p className="copy">© 2026 Furniro. All rights reserved.</p>
     </footer>
   );
 }
